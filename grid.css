@@ -1,0 +1,97 @@
+.divTable{
+	display: table;
+    display: flex;
+    flex-wrap: wrap;
+}
+.divTableRow {
+	display: table-row;
+    display: flex;
+    flex-wrap: wrap;
+}
+.divTableHeading {
+	background-color: #EEE;
+	display: table-header-group;
+}
+.divTableCell, .divTableHead {
+	border: 1px solid #999999;
+	display: table-cell;
+	padding: 10px 10px;
+}
+.divTableHeading {
+	background-color: #EEE;
+	display: table-header-group;
+	font-weight: bold;
+}
+.divTableFoot {
+	background-color: #EEE;
+	display: table-footer-group;
+	font-weight: bold;
+}
+.divTableBody {
+	display: table-row-group;
+    display: flex;
+}
+
+.kanji {
+    font-size: 8vmin;
+    text-align: center;
+}
+
+/* KEYWORD */
+kw:before {
+	content: attr(t);
+
+    
+    text-align: start;
+	line-height: 1.5;
+}
+
+kw {
+
+	text-indent: 0px;
+	line-height: normal;
+	text-align: center;
+}
+/* end KEYWORD */
+
+
+  
+  
+  /* Toggle this class - hide and show the popup */
+  .popup .show {
+    visibility: visible;
+  }
+  
+
+  .more_info {
+    border-bottom: 1px dotted;
+    position: relative;
+  }
+  
+  .more_info .story {
+
+   position: absolute;
+   width: 300px;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+   user-select: none;
+   text-align: center;
+      display: flex;
+      flex-wrap: wrap;
+      background: gold;
+      padding: 4px;
+      white-space: normal;
+      margin:0 auto;
+      border:1px solid black;
+      border-radius: 6px;
+      cursor: pointer;
+      word-break: break-word;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 90000;
+
+
+  }
+
+  
