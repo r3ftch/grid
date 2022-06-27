@@ -1,32 +1,34 @@
 <!DOCTYPE html>
-    <html>
-    <head>
+<html>
+
+<head>
     <script src="jquery-3.6.0.min.js"></script>
     <script src="grid.js"></script>
-    
+
     <link rel="stylesheet" href="grid.css">
     <meta charset="utf-8">
     <meta http-equiv="content-language" content="en">
     <title>New Grid</title>
-    </head>
-    <body>
-        <label>Insert multiple word separate by space <br></label><input id="mySearch" type="text" placeholder="Search...">
-        <button id="showKeyword">Show keyword</button>
-        <div id="kanji_table"></div>
-        <button id="save">Save</button>
+</head>
+
+<body>
+    <label>Insert multiple word separate by space <br></label><input id="mySearch" type="text" placeholder="Search...">
+    <button id="showKeyword">Show keyword</button>
+    <div id="kanji_table"></div>
+    <!-- <button id="save">Save</button> -->
 
 
-<script>
+    <script>
 
-//https://retool.com/utilities/convert-csv-to-json
-$(document).ready(function(){
-    //localStorage.clear();
+        //https://retool.com/utilities/convert-csv-to-json
+        $(document).ready(function () {
+            //localStorage.clear();
 
 
-   
-    function kanjiTemplate(kanji) {
 
-        return `
+            function kanjiTemplate(kanji) {
+
+                return `
         <div class="divTableCell">
         <div class="framenr"><b>${kanji.framenr}</b></div>
         <div class="kanji">${kanji.kanji}</div>
@@ -35,9 +37,9 @@ $(document).ready(function(){
         </div>
         `;
 
-    }
-   
-    document.getElementById("kanji_table").innerHTML = `
+            }
+
+            document.getElementById("kanji_table").innerHTML = `
     <div class="divTable">
     <div class="divTableBody">
     <div class="divTableRow">  
@@ -50,135 +52,130 @@ $(document).ready(function(){
     </div> 
     `;
 
-    //assign ids to divTableCell
-    var index=1;
-    $('.divTableCell').each(function(){
-                    $(this).attr("id", index++);
-                });
-
-
-   
-    (function() {
-    var highest = 1;
-
-    $.fn.bringToTop = function() {
-        this.css('z-index', ++highest); // increase highest by 1 and set the style
-    };
-    })();
-
-
-
-    $(".divTableCell").click(function (event) {
-        //event.preventDefault();
-        var $story = $(this).find(".story");
-        $(this).siblings('.divTableCell').find(".story").hide(); 
-        $(this).find(".story").bringToTop();  
-        $story.toggle();   
-    });
-
-    /* replaced by link within story
-    $(".divTableCell").dblclick(function (event) {
-        event.preventDefault();
-        var kanji=$(this).find(".kanji").text();
-        window.open('https://jisho.org/search/'+kanji+' '+'%23kanji#', 'window name', 'width=800, height=800');   
-        return false;            
-    });
-    */
-
-    //COLOR CELL ON DOUBLE CLICK, REPEAT TO DEFAULT COLOR
-    $(".divTableCell").dblclick(function (event) {
-        event.preventDefault();
-        var backgroundColor = $(this).css('backgroundColor');
-        if (backgroundColor=='rgba(0, 0, 0, 0)'){ //if background is white
-            $(this).css('background-color','lightgreen');
-            var colore = $(this).css('background-color');
-            localStorage.setItem ("color-" + $(this).prop('id'), colore);
-        } else {
-            $(this).css('background-color', 'transparent ');
-            var colore = $(this).css('background-color');
-            localStorage.setItem ("color-" + $(this).prop('id'), colore);
-        } 
-       
-    });
-
-    $(".divTableCell").each(function () {
-        $(this).css('background-color',localStorage.getItem("color-" + $(this).prop('id')));
-        $(this).prop('id')
-        });
-
-    
-    $("#mySearch").on("keyup", function () {  
-            var value = $(this).val().toLowerCase();
-            var jap_value = $(this).val();
-            var containsJapanese = value.match(/[\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff00-\uff9f\u4e00-\u9faf\u3400-\u4dbf]/);
-            if (containsJapanese == null){
-            $(".divTableCell").filter(function () {
-                //$(this).toggle($(this).text().toLowerCase().match(new RegExp('\\b' + value + '\\b')) != null );  
-                $(this).toggle($(this).text().toLowerCase().match(new RegExp('\\b(?:' + value.split(" ").join("|") + ')\\b')) != null );  
-                
-            });
-            }  else{
-                $(".divTableCell").filter(function () {
-                //$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);   
-                var thisText= $(this).text().match(new RegExp(jap_value.split(" ").join("|")));
-               $(this).toggle(thisText != null ); 
-            });
-            }
-
-        });
-
-        $("#showKeyword").click(function () {
-            var cells = $(".keyword");
-            cells.each(function (i) {
-                cells.eq(i).toggle();
-            });
-        });
-       
-
-        $("#save").click(function () {
-            var file ={};
-            var i=0;
-            file = $(".divTableCell").map(function () {
-                    return $(this).prop('id'), $(this).css('background-color');          
+            //assign ids to divTableCell
+            var index = 1;
+            $('.divTableCell').each(function () {
+                $(this).attr("id", index++);
             });
 
 
-            localStorage.setItem('saveFile', JSON.stringify(file));
+
+            (function () {
+                var highest = 1;
+
+                $.fn.bringToTop = function () {
+                    this.css('z-index', ++highest); // increase highest by 1 and set the style
+                };
+            })();
 
 
-        
+
+            $(".divTableCell").click(function (event) {
+                //event.preventDefault();
+                var $story = $(this).find(".story");
+                $(this).siblings('.divTableCell').find(".story").hide();
+                $(this).find(".story").bringToTop();
+                $story.toggle();
+            });
+
+            /* replaced by link within story
+            $(".divTableCell").dblclick(function (event) {
+                event.preventDefault();
+                var kanji=$(this).find(".kanji").text();
+                window.open('https://jisho.org/search/'+kanji+' '+'%23kanji#', 'window name', 'width=800, height=800');   
+                return false;            
+            });
+            */
+
+            //COLOR CELL ON DOUBLE CLICK, REPEAT TO DEFAULT COLOR
+            $(".divTableCell").dblclick(function (event) {
+                event.preventDefault();
+                var backgroundColor = $(this).css('backgroundColor');
+                if (backgroundColor == 'rgba(0, 0, 0, 0)') { //if background is white
+                    $(this).css('background-color', 'lightgreen');
+                    var colore = $(this).css('background-color');
+                    localStorage.setItem("color-" + $(this).prop('id'), colore);
+                } else {
+                    $(this).css('background-color', 'transparent ');
+                    var colore = $(this).css('background-color');
+                    localStorage.setItem("color-" + $(this).prop('id'), colore);
+                }
+
+            });
+
             $(".divTableCell").each(function () {
+                $(this).css('background-color', localStorage.getItem("color-" + $(this).prop('id')));
+                $(this).prop('id')
+            });
 
-                  });
 
-             console.log(JSON.parse(localStorage.getItem('saveFile')));
+            $("#mySearch").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                var jap_value = $(this).val();
+                var containsJapanese = value.match(/[\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff00-\uff9f\u4e00-\u9faf\u3400-\u4dbf]/);
+                if (containsJapanese == null) {
+                    $(".divTableCell").filter(function () {
+                        //$(this).toggle($(this).text().toLowerCase().match(new RegExp('\\b' + value + '\\b')) != null );  
+                        $(this).toggle($(this).text().toLowerCase().match(new RegExp('\\b(?:' + value.split(" ").join("|") + ')\\b')) != null);
+
+                    });
+                } else {
+                    $(".divTableCell").filter(function () {
+                        //$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);   
+                        var thisText = $(this).text().match(new RegExp(jap_value.split(" ").join("|")));
+                        $(this).toggle(thisText != null);
+                    });
+                }
+
+            });
+
+            $("#showKeyword").click(function () {
+                var cells = $(".keyword");
+                cells.each(function (i) {
+                    cells.eq(i).toggle();
+                });
+            });
+
+
+            /* $("#save").click(function () {
+                 var file ={};
+                 var i=0;
+                 file = $(".divTableCell").map(function () {
+                         return $(this).prop('id'), $(this).css('background-color');          
+                 });
+     
+     
+                 localStorage.setItem('saveFile', JSON.stringify(file));
+     
+     
+             
+                 $(".divTableCell").each(function () {
+     
+                       });
+     
+                  console.log(JSON.parse(localStorage.getItem('saveFile')));
+             });
+     
+             */
+
+
+
+
+            //var file = JSON.parse(localStorage.getItem('saveFile'));
+            //https://www.sitepoint.com/jquery-each-function-examples/
+            //https://stackoverflow.com/questions/5875060/creating-an-object-array-in-jquery
+            //https://www.dynetisgames.com/2018/10/28/how-save-load-player-progress-localstorage/
+            //https://stackoverflow.com/questions/46128675/how-to-export-local-storage-of-1-page-and-import-in-another
+            //https://stackoverflow.com/questions/57145344/how-to-access-the-localstorage-value-of-a-specific-key
+
+
         });
-
-        
-
+    </script>
 
 
-
-        //var file = JSON.parse(localStorage.getItem('saveFile'));
-//https://www.sitepoint.com/jquery-each-function-examples/
-//https://stackoverflow.com/questions/5875060/creating-an-object-array-in-jquery
-//https://www.dynetisgames.com/2018/10/28/how-save-load-player-progress-localstorage/
-//https://stackoverflow.com/questions/46128675/how-to-export-local-storage-of-1-page-and-import-in-another
-//https://stackoverflow.com/questions/57145344/how-to-access-the-localstorage-value-of-a-specific-key
-
-
-});
-</script>
-
-
-  </body>
+</body>
 
 
 
 
-  </html>
-  
-  
-
-  
-  
+</html>
