@@ -82,7 +82,7 @@ label{
   }
 
   .kanji{
-  font-size: calc(1vw + 1vh + .5vmin);
+  font-size: calc(1vw + 1vh + 3vmin);
   font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
   text-align: center;
 }
@@ -130,6 +130,10 @@ label{
      -moz-user-select: none;
      -webkit-user-select: none;
      font-size: calc(.5vw + .5vh + .2vmin);
+     padding-left: 10px;
+     padding-top: 10px;
+     padding-right: 10px;
+     padding-bottom: 10px;
   }
 
 
