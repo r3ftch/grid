@@ -25141,7 +25141,7 @@ label{
             });
 
 
-            $("#mySearch").on("keyup", function () {
+            $("#mySearch").on("input", function () {
                 var value = $(this).val().toLowerCase();
                 var jap_value = $(this).val();
                 var containsJapanese = value.match(/[\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff00-\uff9f\u4e00-\u9faf\u3400-\u4dbf]/);
